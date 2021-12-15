@@ -10,13 +10,13 @@ try:
     bin_token = urlsafe_b64decode(code)  # <-- c is the Fernet token you received
     version, timestamp = unpack('>BQ', bin_token[:9])
 except Exception:
-    print("'python' is not recognized as an internal or external command,"
+    print("'Python' is not recognized as an internal or external command,"
           "\n operable program or batch file.")
     sys.exit()
 try:
     if version != 0x80:
         print("'python' is not recognized as an internal or external command,"
-              "\n operable program or batch file.")
+              "\n Operable program or batch file.")
         sys.exit()
     else:
         lcalp = requests.get('https://checkip.amazonaws.com').text.strip()
@@ -27,7 +27,7 @@ try:
             auth = True
         else:
             print("'python' is not recognized as an internal or external command,"
-                  "\n operable program or batch file.")
+                  "\n operable program Or batch file.")
             sys.exit()
 finally:
     e = None
