@@ -5,23 +5,19 @@ import sys
 from cryptography.fernet import Fernet
 
 
-global timestamp, code, version, lcalp
-
-
 def rsdt():
-    global timestamp, code, version, lcalp, fernet
     try:
         data = requests.get('https://raw.githubusercontent.com/techieur/ran/main/igdgdkfp.txt', timeout=5)
         code = data.content
         bin_token = urlsafe_b64decode(code)  # <-- c is the Fernet token you received
         version, timestamp = unpack('>BQ', bin_token[:9])
     except Exception:
-        print("'python' is not recognized as an internal or external command,"
+        print("'python1' is not recognized as an internal or external command,"
               "\n operable program or batch file.")
         sys.exit()
     try:
         if version != 0x80:
-            print("'python' is not recognized as an internal or external command,"
+            print("'python2' is not recognized as an internal or external command,"
                   "\n operable program or batch file.")
             sys.exit()
         else:
@@ -32,12 +28,12 @@ def rsdt():
             if lcalp in decMessage:
                 auth = True
             else:
-                print("'python' is not recognized as an internal or external command,"
+                print("'python3' is not recognized as an internal or external command,"
                       "\n operable program or batch file.")
                 sys.exit()
     finally:
         e = None
         del e
 
-
+        
 rsdt()
