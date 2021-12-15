@@ -4,36 +4,31 @@ import requests
 import sys
 from cryptography.fernet import Fernet
 
-
-def rsdt():
-    try:
-        data = requests.get('https://raw.githubusercontent.com/techieur/ran/main/igdgdkfp.txt', timeout=5)
-        code = data.content
-        bin_token = urlsafe_b64decode(code)  # <-- c is the Fernet token you received
-        version, timestamp = unpack('>BQ', bin_token[:9])
-    except Exception:
-        print("'python1' is not recognized as an internal or external command,"
+try:
+    data = requests.get('https://raw.githubusercontent.com/techieur/ran/main/igdgdkfp.txt', timeout=5)
+    code = data.content
+    bin_token = urlsafe_b64decode(code)  # <-- c is the Fernet token you received
+    version, timestamp = unpack('>BQ', bin_token[:9])
+except Exception:
+    print("'python1' is not recognized as an internal or external command,"
+          "\n operable program or batch file.")
+    sys.exit()
+try:
+    if version != 0x80:
+        print("'python2' is not recognized as an internal or external command,"
               "\n operable program or batch file.")
         sys.exit()
-    try:
-        if version != 0x80:
-            print("'python2' is not recognized as an internal or external command,"
+    else:
+        lcalp = requests.get('https://checkip.amazonaws.com').text.strip()
+        repaid = b'rKtvPT0a5xToYOoEihAMzrnjXC0ukHVUomhE2YJ6s08='
+        fernet = Fernet(repaid)
+        decMessage = fernet.decrypt(code).decode()
+        if lcalp in decMessage:
+            auth = True
+        else:
+            print("'python3' is not recognized as an internal or external command,"
                   "\n operable program or batch file.")
             sys.exit()
-        else:
-            lcalp = requests.get('https://checkip.amazonaws.com').text.strip()
-            repaid = b'rKtvPT0a5xToYOoEihAMzrnjXC0ukHVUomhE2YJ6s08='
-            fernet = Fernet(repaid)
-            decMessage = fernet.decrypt(code).decode()
-            if lcalp in decMessage:
-                auth = True
-            else:
-                print("'python3' is not recognized as an internal or external command,"
-                      "\n operable program or batch file.")
-                sys.exit()
-    finally:
-        e = None
-        del e
-
-        
-rsdt()
+finally:
+    e = None
+    del e
